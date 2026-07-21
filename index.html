@@ -2,12 +2,25 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.indigo.min.css"
+    />
     <title>Music App</title>
-    <script type="module" src="index.ts"></script>
+    <script type="module" src="/index.ts"></script>
   </head>
   <body>
-    <input type="text" id="itemInput" />
-    <button id="addBtn">Add Item</button>
+    <h1>Music App</h1>
+    <form id="search-form">
+      <input
+        id="search-input"
+        name="query"
+        type="text"
+        placeholder="Enter a song title"
+      />
+      <button id="search-button">Search</button>
+    </form>
+    <h2>Albums</h2>
     <ul id="itemList"></ul>
   </body>
 </html>

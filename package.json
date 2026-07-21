@@ -1,5 +1,5 @@
 {
-  "name": "music-test-app",
+  "name": "music-app",
   "module": "index.ts",
   "type": "module",
   "private": true,
@@ -8,5 +8,8 @@
   },
   "peerDependencies": {
     "typescript": "^5"
+  },
+  "dependencies": {
+    "@picocss/pico": "^2.1.1"
   }
 }
