@@ -3,7 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "lib": ["esnext", "dom"],
-    "types": [],
+    "types": ["bun"],
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -13,11 +13,7 @@
     "noEmit": true,
     "incremental": true,
     "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "jsx": "react-jsx",
-    "paths": {
-      "@/*": ["./*"]
-    }
+    "isolatedModules": true
   },
   "include": ["**/*"],
   "exclude": ["node_modules"]
