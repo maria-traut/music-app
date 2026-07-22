@@ -1,3 +1,11 @@
+import albums from "./assets/albums.json";
+const form = document.getElementById("search-form") as HTMLFormElement;
+const input = document.getElementById("search-input") as HTMLInputElement;
+const button = document.getElementById("search-button") as HTMLButtonElement;
+const albumSearchResultList = document.getElementById(
+  "album-search-list",
+) as HTMLUListElement;
+
 export interface ITrack {
   id: number;
   title: string;
@@ -15,6 +23,11 @@ export interface IAlbum {
   release_date: string;
   artist: IArtist;
   tracks: ITrack[];
+}
+
+interface ISearchResult {
+  title: string;
+  artist: string;
 }
 
 interface IArtist {
@@ -79,3 +92,24 @@ export function getAlbumCard(album: IAlbum): HTMLElement {
 
   return albumCard;
 }
+
+form.addEventListener("submit", (event: SubmitEvent) => {
+  event.preventDefault();
+
+  const searchTerm = input.value.toLowerCase();
+
+  const foundAlbums = albums.filter((album) => {
+    return (
+      album.title.toLowerCase().includes(searchTerm) ||
+      album.artist.name.toLowerCase().includes(searchTerm)
+    );
+  });
+  foundAlbums.map((foundAlbum) =>
+    albumSearchResultList.append(getAlbumCard(foundAlbum)),
+  );
+  if (foundAlbums.length === 0) {
+    const noResultsFound = document.createElement("p");
+    noResultsFound.textContent = `No results found. Try another term.`;
+    albumSearchResultList.append(noResultsFound);
+  }
+});
