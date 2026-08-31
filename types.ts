@@ -1,7 +1,6 @@
 import albums from "./assets/albums.json";
 const form = document.getElementById("search-form") as HTMLFormElement;
 const input = document.getElementById("search-input") as HTMLInputElement;
-const button = document.getElementById("search-button") as HTMLButtonElement;
 const albumSearchResultList = document.getElementById(
   "album-search-list",
 ) as HTMLUListElement;
@@ -96,7 +95,7 @@ export function getAlbumCard(album: IAlbum): HTMLElement {
 form.addEventListener("submit", (event: SubmitEvent) => {
   event.preventDefault();
 
-  const searchTerm = input.value.toLowerCase();
+  const searchTerm: string = input.value.toLowerCase();
 
   const foundAlbums = albums.filter((album) => {
     return (
@@ -107,9 +106,14 @@ form.addEventListener("submit", (event: SubmitEvent) => {
   foundAlbums.map((foundAlbum) =>
     albumSearchResultList.append(getAlbumCard(foundAlbum)),
   );
+  input.value = "";
   if (foundAlbums.length === 0) {
     const noResultsFound = document.createElement("p");
     noResultsFound.textContent = `No results found. Try another term.`;
     albumSearchResultList.append(noResultsFound);
   }
 });
+
+// const ul = document.getElementById("itemList") as HTMLUListElement;
+
+// allAlbums.map((album) => ul.append(getAlbumCard(album)));
