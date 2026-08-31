@@ -1,39 +1,35 @@
+import express from "express";
+import nunjucks from "nunjucks";
+import path from "node:path";
 import albums from "./assets/albums.json";
-const ul = document.getElementById("itemList") as HTMLUListElement;
+import type { IAlbum } from "./types";
 
-const allAlbums = albums;
-console.log("albums", albums);
+const app = express();
 
-const albumList = allAlbums.map((album) => {
-  const li = document.createElement("li");
-  li.textContent = `${album.title} by ${album.artist.name}`;
-
-  const ol = document.createElement("ol");
-  album.tracks.map((track) => {
-    const trackLi = document.createElement("li");
-    trackLi.textContent = `${track.title}`;
-
-    ol.appendChild(trackLi);
-  });
-  li.appendChild(ol);
-  ul.appendChild(li);
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app,
 });
 
-console.log("albumList", albumList);
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "html");
 
-/*
-interface Artist {
-  name: string;
-}
+app.get("/", (req, res) => {
+  res.render("index.html", { title: "Home" });
+});
 
-interface Track {
-  title: string;
-}
+const allAlbums = albums as IAlbum[];
 
-interface Album {
-  title: string;
-  release_date: string;
-  artist: Artist;
-  tracks: Track[];
-}
-*/
+app.get("/albums", (req, res) => {
+  res.render("albums.html", { title: "Albums", albums: allAlbums });
+});
+
+app.get("/favorites", (req, res) => {
+  res.render("favorites.html", { title: "Favorites" });
+});
+
+const port = 3000;
+
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
+});
